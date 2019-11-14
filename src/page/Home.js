@@ -5,13 +5,10 @@ import {
   Text,
   Button,
   StyleSheet,
-  AsyncStorage
 } from 'react-native'
-import { goToAuth } from '../navigation'
-import {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
 
-import { USER_KEY } from '../config'
-
+console.disableYellowBox = true;
 export default class Home extends React.Component {
   static get options() {
     return {
@@ -22,27 +19,35 @@ export default class Home extends React.Component {
       }
     };
   }
-  logout = async () => {
-    try {
-      await AsyncStorage.removeItem(USER_KEY)
-      goToAuth()
-    } catch (err) {
-      console.log('error signing out...: ', err)
-    }
+
+  showOverlay = async () => {
+    Navigation.showOverlay({
+      component: {
+        name: 'Overlay',
+        options: {
+          overlay: {
+            interceptTouchOutside: false,
+            handleKeyboardEvents:true
+
+          }
+        }
+      }
+    });
   }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>Hello from Home screen.</Text>
         <Button
-          onPress={this.logout}
-          title="Sign Out"
+          onPress={this.showOverlay}
+          title="Show Overlay"
         />
         <Button
           onPress={() => {
             Navigation.push(this.props.componentId, {
               component: {
-                name: 'Screen2',
+                name: 'Temp',
               }
             });
           }}

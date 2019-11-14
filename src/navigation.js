@@ -1,50 +1,48 @@
-import { Navigation } from 'react-native-navigation'
+import { Navigation } from 'react-native-navigation';
+import { registerScreens } from './screens';
 
-export const goToAuth = () => Navigation.setRoot({
-  root: {
-    bottomTabs: {
-      id: 'BottomTabsId',
-      children: [
-        {
-          component: {
-            name: 'SignIn',
-            options: {
-              bottomTab: {
-                fontSize: 12,
-                text: 'Sign In',
-                icon: require('./assets/signIn.png')
-              }
-            }
-          },
-        },
-        {
-          component: {
-            name: 'SignUp',
-            options: {
-              bottomTab: {
-                text: 'Sign Up',
-                fontSize: 12,
-                icon: require('./assets/signUp.png')
-              }
-            }
-          },
-        },
-      ],
-    }
-  }
-});
-
-export const goHome = () => Navigation.setRoot({
-  root: {
-    stack: {
-      id: 'App',
-      children: [
-        {
+const abcd = {
+  children: [
+    {
+      stack: {
+        id:'discoverStack',
+        children: [{
           component: {
             name: 'Home',
           }
+        }],
+        options: {
+          bottomTab: {
+            text: 'Home',
+            icon: require('./assets/home_icon.png')
+          }
         }
-    ],
+      }
+    },
+    {
+      stack: {
+        children:[{
+          component: {
+            name: 'Home'
+          },
+          component:{
+            name:'Explore'
+          }
+        }],
+        options: {
+          bottomTab: {
+            text: 'Explore',
+            icon: require('./assets/explore_icon.png')
+          }
+        }
+      }
     }
+  ],
+  options: {}
+};
+
+export const goHome = () => Navigation.setRoot({
+  root: {
+    bottomTabs: abcd
   }
-})
+});
